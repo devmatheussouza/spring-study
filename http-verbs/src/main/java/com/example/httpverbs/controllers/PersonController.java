@@ -1,7 +1,7 @@
 package com.example.httpverbs.controllers;
 
 import com.example.httpverbs.data.dto.v1.PersonDTO;
-import com.example.httpverbs.models.Person;
+import com.example.httpverbs.data.dto.v2.PersonDTOv2;
 import com.example.httpverbs.services.PersonServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -17,6 +17,8 @@ public class PersonController {
     @Autowired
     private PersonServices services;
 
+
+
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<PersonDTO> findAll(){
         return services.findAll();
@@ -28,12 +30,17 @@ public class PersonController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public PersonDTO create(@RequestBody Person person){
+    public PersonDTO create(@RequestBody PersonDTO person){
         return services.create(person);
     }
 
+    @PostMapping(value = "/v2",consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public PersonDTOv2 createV2(@RequestBody PersonDTOv2 person){
+        return services.createV2(person);
+    }
+
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public PersonDTO update(@RequestBody Person person){
+    public PersonDTO update(@RequestBody PersonDTO person){
         return services.update(person);
     }
 
